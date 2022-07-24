@@ -1,0 +1,95 @@
+﻿<Window x:Class="NaplatneRampeSrbije.ViewsControllers.EmployeeRUDView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NaplatneRampeSrbije.ViewsControllers"
+        mc:Ignorable="d"
+        Title="Korisnik Pregled" Height="450" Width="800"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        Background="Black"
+        WindowStyle="None">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="50" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50" />
+            <ColumnDefinition />
+            <ColumnDefinition Width="50" />
+        </Grid.ColumnDefinitions>
+
+        <DataGrid Grid.Row="1"
+                  Grid.Column="1"
+                  x:Name ="employeeDataGrid" 
+                  ScrollViewer.CanContentScroll="True" 
+                  ScrollViewer.VerticalScrollBarVisibility="Auto"
+                  ScrollViewer.HorizontalScrollBarVisibility="Auto" >
+            <DataGrid.Columns>
+                <DataGridTextColumn 
+                    Header="Ime" 
+                    Binding="{Binding FirstName}" 
+                    MinWidth="50"/>
+                <DataGridTextColumn 
+                    Header="Prezime" 
+                    Binding="{Binding LastName}" 
+                    MinWidth="50"/>
+                <DataGridTextColumn 
+                    Header="Pol" 
+                    Binding="{Binding Gender}" 
+                    MinWidth="50"/>
+                <DataGridTextColumn 
+                    Header="Telefon" 
+                    Binding="{Binding PhoneNumber}" 
+                    MinWidth="50"/>
+                <DataGridTextColumn 
+                    Header="Radno mesto" 
+                    Binding="{Binding WorkPlace}" 
+                    MinWidth="50"/>
+                <DataGridTextColumn 
+                    Header="Korisničko ime" 
+                    Binding="{Binding Username}" 
+                    MinWidth="50"/>
+                <DataGridTextColumn 
+                    Header="Naplatno mesto" 
+                    Binding="{Binding TollBooth}" 
+                    MinWidth="50"/>
+                <DataGridTextColumn 
+                    Header="Naplatna stanica" 
+                    Binding="{Binding TollStation}" 
+                    MinWidth="50"/>
+                <DataGridTextColumn 
+                    Header="Adresa" 
+                    Binding="{Binding Address}" 
+                    MinWidth="50"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <StackPanel Grid.Row="2"
+                    Grid.Column="1" 
+                    Orientation="Horizontal">
+            <Button Content="Izmeni radnika"
+                    x:Name="updateEmployeeButton"
+                    Margin="20"
+                    MinHeight="50"
+                    MinWidth="150" 
+                    Click="updateEmployeeButton_Click"/>
+            <Button Content="Ukloni radnika"
+                    x:Name="deleteEmployeeButton"
+                    Margin="20"
+                    MinHeight="50"
+                    MinWidth="150"
+                    Click="deleteEmployeeButton_Click"/>
+            <Button 
+                x:Name="goBackButton"
+                Content="Idi nazad"
+                Click="goBackButton_Click"
+                Margin="20"
+                MinHeight="50"
+                MinWidth="150"/>
+        </StackPanel>
+    </Grid>
+</Window>
