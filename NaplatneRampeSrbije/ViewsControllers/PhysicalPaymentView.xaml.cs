@@ -67,7 +67,7 @@ namespace NaplatneRampeSrbije.ViewsControllers
             Currency currency = (Currency)currencyComboBox.SelectedItem;
             DateTime exitDate = DateTime.Now;
 
-            if (_tollBoothService.SameTollStation(tollBooth.ID, Globals.ulogovaniRadnik.TollBooth.ID))
+            if (_tollBoothService.SameTollStation(tollBooth.ID, Globals.signedEmployee.TollBooth.ID))
             {
                 _ = MessageBox.Show("Nije validna kombinacija mesta ulaska i izlaska", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
@@ -101,7 +101,7 @@ namespace NaplatneRampeSrbije.ViewsControllers
 
         private void Logout()
         {
-            Globals.ulogovaniRadnik = null;
+            Globals.signedEmployee = null;
             LoginView loginWindow = new LoginView(
                 new LoginService());
             Close();

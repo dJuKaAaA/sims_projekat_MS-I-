@@ -64,7 +64,7 @@ namespace NaplatneRampeSrbije.ViewsControllers
 
         private void Logout()
         {
-            Globals.ulogovaniRadnik = null;
+            Globals.signedEmployee = null;
             LoginView loginWindow = new LoginView(
                 new LoginService());
             Close();

@@ -11,7 +11,7 @@ namespace NaplatneRampeSrbije.Models.Repositories.Implementations
     {
         public TollBooth GetByID(int id)
         {
-            using OleDbConnection connection = new OleDbConnection(Globals.putanjaKonekcije);
+            using OleDbConnection connection = new OleDbConnection(Globals.connectionPath);
 
             string query = $"SELECT * FROM naplatno_mesto WHERE naplatno_mesto_id = {id}";
             OleDbCommand command = new OleDbCommand(query, connection);
@@ -28,7 +28,7 @@ namespace NaplatneRampeSrbije.Models.Repositories.Implementations
 
         public List<TollBooth> GetAll()
         {
-            using OleDbConnection connection = new OleDbConnection(Globals.putanjaKonekcije);
+            using OleDbConnection connection = new OleDbConnection(Globals.connectionPath);
 
             string query = $"SELECT * FROM naplatno_mesto";
             OleDbCommand command = new OleDbCommand(query, connection);
@@ -45,7 +45,7 @@ namespace NaplatneRampeSrbije.Models.Repositories.Implementations
 
         public void Save(TollBooth tollBooth)
         {
-            using OleDbConnection connection = new OleDbConnection(Globals.putanjaKonekcije);
+            using OleDbConnection connection = new OleDbConnection(Globals.connectionPath);
 
             string query = $"INSERT INTO naplatno_mesto (naplatno_mesto_id, naplatna_stanica_id, el_naplata) VALUES ({tollBooth.ID}, {tollBooth.TollStation.ID}, {tollBooth.ElectronicPayment})";
             OleDbCommand command = new OleDbCommand(query, connection);
@@ -55,7 +55,7 @@ namespace NaplatneRampeSrbije.Models.Repositories.Implementations
 
         public void Edit(TollBooth tollBooth)
         {
-            using OleDbConnection connection = new OleDbConnection(Globals.putanjaKonekcije);
+            using OleDbConnection connection = new OleDbConnection(Globals.connectionPath);
 
             string query = $"UPDATE naplatno_mesto SET naplatna_stanica_id = {tollBooth.TollStation.ID}, el_naplata = {tollBooth.ElectronicPayment} WHERE naplatno_mesto_id = {tollBooth.ID}";
             OleDbCommand command = new OleDbCommand(query, connection);
@@ -65,7 +65,7 @@ namespace NaplatneRampeSrbije.Models.Repositories.Implementations
 
         public void Delete(int id)
         {
-            using OleDbConnection connection = new OleDbConnection(Globals.putanjaKonekcije);
+            using OleDbConnection connection = new OleDbConnection(Globals.connectionPath);
 
             string query = $"DELETE FROM naplatno_mesto WHERE naplatno_mesto_id = {id}";
             OleDbCommand command = new OleDbCommand(query, connection);
@@ -75,7 +75,7 @@ namespace NaplatneRampeSrbije.Models.Repositories.Implementations
 
         public int GenerateNewID()
         {
-            using OleDbConnection connection = new OleDbConnection(Globals.putanjaKonekcije);
+            using OleDbConnection connection = new OleDbConnection(Globals.connectionPath);
 
             string query = $"SELECT max(naplatno_mesto_id) FROM naplatno_mesto";
             OleDbCommand command = new OleDbCommand(query, connection);
@@ -93,7 +93,7 @@ namespace NaplatneRampeSrbije.Models.Repositories.Implementations
         public Dictionary<TollBooth, double> GetEarnings()
         {
             Dictionary<TollBooth, double> earnings = new Dictionary<TollBooth, double>();
-            using OleDbConnection connection = new OleDbConnection(Globals.putanjaKonekcije);
+            using OleDbConnection connection = new OleDbConnection(Globals.connectionPath);
             string query = $"SELECT izlazak_naplatno_mesto_id, sum(cena) FROM racun GROUP BY izlazak_naplatno_mesto_id";
 
             OleDbCommand command = new OleDbCommand(query, connection);

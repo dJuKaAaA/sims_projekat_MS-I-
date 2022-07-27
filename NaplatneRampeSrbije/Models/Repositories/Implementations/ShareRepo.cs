@@ -8,7 +8,7 @@ namespace NaplatneRampeSrbije.Models.Repositories.Implementations
     {
         public Share GetByID(int id)
         {
-            using OleDbConnection connection = new OleDbConnection(Globals.putanjaKonekcije);
+            using OleDbConnection connection = new OleDbConnection(Globals.connectionPath);
 
             string query = $"SELECT * FROM deonica WHERE deonica_id = {id}";
             OleDbCommand command = new OleDbCommand(query, connection);
@@ -25,7 +25,7 @@ namespace NaplatneRampeSrbije.Models.Repositories.Implementations
 
         public Share GetByEnterExitTollStation(int enteredTollStationID, int exitedTollStationID)
         {
-            using OleDbConnection connection = new OleDbConnection(Globals.putanjaKonekcije);
+            using OleDbConnection connection = new OleDbConnection(Globals.connectionPath);
 
             string query = $"SELECT * FROM deonica WHERE pocetak_naplatna_stanica_id = {enteredTollStationID} AND kraj_naplatna_stanica_id = {exitedTollStationID}";
             OleDbCommand command = new OleDbCommand(query, connection);

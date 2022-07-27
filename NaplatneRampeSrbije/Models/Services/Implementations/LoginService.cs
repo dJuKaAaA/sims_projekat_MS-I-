@@ -15,7 +15,7 @@ namespace NaplatneRampeSrbije.Models.Services.Implementations
         {
             try
             {
-                using (OleDbConnection connection = new OleDbConnection(Globals.putanjaKonekcije))
+                using (OleDbConnection connection = new OleDbConnection(Globals.connectionPath))
                 {
                     string query = $"SELECT * FROM radnik WHERE korisnicko_ime = '{username}' AND lozinka = '{password}'";
                     OleDbCommand command = new OleDbCommand(query, connection);
@@ -23,7 +23,7 @@ namespace NaplatneRampeSrbije.Models.Services.Implementations
                     connection.Open();
                     OleDbDataReader reader = command.ExecuteReader();
                     reader.Read();
-                    Globals.ulogovaniRadnik = new Employee(
+                    Globals.signedEmployee = new Employee(
                         reader, 
                         new TollBoothRepo(),
                         new TollStationRepo(),
@@ -33,10 +33,10 @@ namespace NaplatneRampeSrbije.Models.Services.Implementations
             }
             catch
             {
-                Globals.ulogovaniRadnik = null;
+                Globals.signedEmployee = null;
             }
 
-            return Globals.ulogovaniRadnik != null;
+            return Globals.signedEmployee != null;
         }
     }
 }

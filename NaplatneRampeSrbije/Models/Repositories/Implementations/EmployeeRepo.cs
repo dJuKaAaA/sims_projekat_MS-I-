@@ -12,7 +12,7 @@ namespace NaplatneRampeSrbije.Models.Repositories.Implementations
     {
         public Employee GetByID(int id)
         {
-            using OleDbConnection connection = new OleDbConnection(Globals.putanjaKonekcije);
+            using OleDbConnection connection = new OleDbConnection(Globals.connectionPath);
 
             string query = $"SELECT * FROM radnik WHERE radnik_id = {id}";
             OleDbCommand command = new OleDbCommand(query, connection);
@@ -33,7 +33,7 @@ namespace NaplatneRampeSrbije.Models.Repositories.Implementations
 
         public int GenerateNewID()
         {
-            using OleDbConnection connection = new OleDbConnection(Globals.putanjaKonekcije);
+            using OleDbConnection connection = new OleDbConnection(Globals.connectionPath);
 
             string query = $"SELECT max(radnik_id) FROM radnik";
             OleDbCommand command = new OleDbCommand(query, connection);
@@ -50,7 +50,7 @@ namespace NaplatneRampeSrbije.Models.Repositories.Implementations
 
         public List<Employee> GetAll()
         {
-            using OleDbConnection connection = new OleDbConnection(Globals.putanjaKonekcije);
+            using OleDbConnection connection = new OleDbConnection(Globals.connectionPath);
 
             List<Employee> allEmployees = new List<Employee>();
             string query = "SELECT * FROM radnik";
@@ -73,7 +73,7 @@ namespace NaplatneRampeSrbije.Models.Repositories.Implementations
 
         public void Save(Employee newEmployee)
         {
-            using OleDbConnection connection = new OleDbConnection(Globals.putanjaKonekcije);
+            using OleDbConnection connection = new OleDbConnection(Globals.connectionPath);
 
             string query = $"SELECT * FROM radnik WHERE radnik_id = {newEmployee.ID} OR korisnicko_ime = '{newEmployee.Username}' OR lozinka = '{newEmployee.Password}'";
             OleDbCommand command = new OleDbCommand(query, connection);
@@ -119,7 +119,7 @@ namespace NaplatneRampeSrbije.Models.Repositories.Implementations
 
         public void Update(Employee employee)
         {
-            using OleDbConnection connection = new OleDbConnection(Globals.putanjaKonekcije);
+            using OleDbConnection connection = new OleDbConnection(Globals.connectionPath);
 
             int workSpaceID = -1;
             if (employee.WorkPlace == WorkPlace.BillingOfficer)
@@ -147,7 +147,7 @@ namespace NaplatneRampeSrbije.Models.Repositories.Implementations
 
         public void Delete(int id)
         {
-            using OleDbConnection connection = new OleDbConnection(Globals.putanjaKonekcije);
+            using OleDbConnection connection = new OleDbConnection(Globals.connectionPath);
 
             string query = $"DELETE FROM radnik WHERE radnik_id = {id}";
             OleDbCommand command = new OleDbCommand(query, connection);
@@ -157,7 +157,7 @@ namespace NaplatneRampeSrbije.Models.Repositories.Implementations
 
         public Employee GetByWorkSpaceID(int workSpaceID, WorkPlace workPlace)
         {
-            using OleDbConnection connection = new OleDbConnection(Globals.putanjaKonekcije);
+            using OleDbConnection connection = new OleDbConnection(Globals.connectionPath);
 
             string query = $"SELECT * FROM radnik WHERE mesto_rada_id = {workSpaceID} AND radno_mesto = {Convert.ToInt32(workPlace)}";
             OleDbCommand command = new OleDbCommand(query, connection);

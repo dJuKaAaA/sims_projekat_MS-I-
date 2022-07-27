@@ -11,7 +11,7 @@ namespace NaplatneRampeSrbije.Models.Repositories.Implementations
     {
         public List<PricelistItem> GetByPricelist(Pricelist pricelist)
         {
-            using OleDbConnection connection = new OleDbConnection(Globals.putanjaKonekcije);
+            using OleDbConnection connection = new OleDbConnection(Globals.connectionPath);
 
             List<PricelistItem> items = new List<PricelistItem>();
             string query = $"SELECT * FROM stavka_cenovnika WHERE cenovnik_id = {pricelist.ID}";

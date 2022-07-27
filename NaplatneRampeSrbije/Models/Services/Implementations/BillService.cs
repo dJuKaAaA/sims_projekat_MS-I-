@@ -37,7 +37,7 @@ namespace NaplatneRampeSrbije.Models.Services.Implementations
         {
             Pricelist pricelist = _pricelistRepo.GetCurrent();
 
-            TollBooth tollBoothExited = Globals.ulogovaniRadnik.TollBooth;
+            TollBooth tollBoothExited = Globals.signedEmployee.TollBooth;
 
             Share share = _shareRepo.GetByEnterExitTollStation(tollBoothEntered.TollStation.ID, tollBoothExited.TollStation.ID);
 

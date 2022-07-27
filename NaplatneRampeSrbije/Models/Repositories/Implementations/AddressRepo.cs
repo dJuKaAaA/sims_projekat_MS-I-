@@ -9,7 +9,7 @@ namespace NaplatneRampeSrbije.Models.Repositories.Implementations
     {
         public List<Address> GetAll()
         {
-            using OleDbConnection connection = new OleDbConnection(Globals.putanjaKonekcije);
+            using OleDbConnection connection = new OleDbConnection(Globals.connectionPath);
 
             string query = $"SELECT * FROM adresa";
             OleDbCommand command = new OleDbCommand(query, connection);
@@ -28,7 +28,7 @@ namespace NaplatneRampeSrbije.Models.Repositories.Implementations
 
         public int GenerateNewID()
         {
-            using OleDbConnection connection = new OleDbConnection(Globals.putanjaKonekcije);
+            using OleDbConnection connection = new OleDbConnection(Globals.connectionPath);
 
             string query = $"SELECT max(adresa_id) FROM adresa";
             OleDbCommand command = new OleDbCommand(query, connection);
@@ -46,7 +46,7 @@ namespace NaplatneRampeSrbije.Models.Repositories.Implementations
 
         public Address GetByID(int id)
         {
-            using OleDbConnection connection = new OleDbConnection(Globals.putanjaKonekcije);
+            using OleDbConnection connection = new OleDbConnection(Globals.connectionPath);
 
             string query = $"SELECT * FROM adresa WHERE adresa_id = {id}";
             OleDbCommand command = new OleDbCommand(query, connection);
@@ -64,7 +64,7 @@ namespace NaplatneRampeSrbije.Models.Repositories.Implementations
 
         public void Save(Address adress)
         {
-            using OleDbConnection connection = new OleDbConnection(Globals.putanjaKonekcije);
+            using OleDbConnection connection = new OleDbConnection(Globals.connectionPath);
 
             string query = $"INSERT INTO adresa (adresa_id, ulica, broj, mesto_id) VALUES ({adress.ID}, '{adress.Street}','{adress.Number}',{adress.City.ID})";
             OleDbCommand command = new OleDbCommand(query, connection);
@@ -74,7 +74,7 @@ namespace NaplatneRampeSrbije.Models.Repositories.Implementations
 
         public void Update(Address address)
         {
-            using OleDbConnection connection = new OleDbConnection(Globals.putanjaKonekcije);
+            using OleDbConnection connection = new OleDbConnection(Globals.connectionPath);
 
             string query = $"UPDATE adresa SET ulica = '{address.Street}', broj = '{address.Number}', mesto_id = {address.City.ID} WHERE adresa_id = {address.ID}";
             OleDbCommand command = new OleDbCommand(query, connection);
@@ -84,7 +84,7 @@ namespace NaplatneRampeSrbije.Models.Repositories.Implementations
 
         public void Delete(int id)
         {
-            using OleDbConnection connection = new OleDbConnection(Globals.putanjaKonekcije);
+            using OleDbConnection connection = new OleDbConnection(Globals.connectionPath);
 
             string query = $"DELETE FROM adresa WHERE adresa_id = {id}";
             OleDbCommand command = new OleDbCommand(query, connection);

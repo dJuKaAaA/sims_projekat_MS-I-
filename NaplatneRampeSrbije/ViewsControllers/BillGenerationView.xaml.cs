@@ -39,7 +39,7 @@ namespace NaplatneRampeSrbije.ViewsControllers
             vehicleTypeComboBox.SelectedItem = _vehicleType;
             currencyComboBox.Items.Add(_currency);
             currencyComboBox.SelectedItem = _currency;
-            exitDateTextBox.Text = _exitDate.ToString(Globals.formatDatumVreme);
+            exitDateTextBox.Text = _exitDate.ToString(Globals.dateTimeFormat);
             billIDTextBox.Text = billRepo.GenerateNewID().ToString();
 
             _forPayment = _billService.GetPriceForShareAndVehicle(_tollBooth, _vehicleType, Currency.Dinar);
@@ -55,7 +55,7 @@ namespace NaplatneRampeSrbije.ViewsControllers
             double paymentPrice = Convert.ToDouble(paymentSumTextBox.Text);
             Currency currency = (Currency)currencyComboBox.SelectedItem;
             DateTime exitDate = DateTime.Parse(exitDateTextBox.Text);
-            int exitedTollBoothID = Globals.ulogovaniRadnik.TollBooth.ID;
+            int exitedTollBoothID = Globals.signedEmployee.TollBooth.ID;
             int enteredTollBoothID = _tollBooth.ID;
 
             double paidSum;

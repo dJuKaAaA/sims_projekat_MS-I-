@@ -11,7 +11,7 @@ namespace NaplatneRampeSrbije.Models.Repositories.Implementations
     {
         public City GetByID(int id)
         {
-            using OleDbConnection connection = new OleDbConnection(Globals.putanjaKonekcije);
+            using OleDbConnection connection = new OleDbConnection(Globals.connectionPath);
 
             string query = $"SELECT * FROM mesto WHERE mesto_id = {id}";
             OleDbCommand command = new OleDbCommand(query, connection);
@@ -28,7 +28,7 @@ namespace NaplatneRampeSrbije.Models.Repositories.Implementations
 
         public List<City> GetAll()
         {
-            using OleDbConnection connection = new OleDbConnection(Globals.putanjaKonekcije);
+            using OleDbConnection connection = new OleDbConnection(Globals.connectionPath);
 
             string query = $"SELECT * FROM mesto";
             OleDbCommand command = new OleDbCommand(query, connection);
@@ -47,7 +47,7 @@ namespace NaplatneRampeSrbije.Models.Repositories.Implementations
 
         public City GetByZipCode(string zipCode)
         {
-            using OleDbConnection connection = new OleDbConnection(Globals.putanjaKonekcije);
+            using OleDbConnection connection = new OleDbConnection(Globals.connectionPath);
 
             string query = $"SELECT * FROM mesto WHERE postanski_broj = '{zipCode}'";
             OleDbCommand command = new OleDbCommand(query, connection);

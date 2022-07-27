@@ -8,7 +8,7 @@ namespace NaplatneRampeSrbije.Models.Repositories.Implementations
     {
         public VehicleCard GetByID(int id)
         {
-            using OleDbConnection connection = new OleDbConnection(Globals.putanjaKonekcije);
+            using OleDbConnection connection = new OleDbConnection(Globals.connectionPath);
 
             string query = $"SELECT * FROM kartica WHERE kartica_id = {id}";
             OleDbCommand command = new OleDbCommand(query, connection);

@@ -11,7 +11,7 @@ namespace NaplatneRampeSrbije.Models.Repositories.Implementations
     {
         public Pricelist GetByID(int id)
         {
-            using OleDbConnection connection = new OleDbConnection(Globals.putanjaKonekcije);
+            using OleDbConnection connection = new OleDbConnection(Globals.connectionPath);
 
             string query = $"SELECT * FROM cenovnik WHERE cenovnik_id = {id}";
             OleDbCommand command = new OleDbCommand(query, connection);
@@ -28,7 +28,7 @@ namespace NaplatneRampeSrbije.Models.Repositories.Implementations
 
         public Pricelist GetCurrent()
         {
-            using OleDbConnection connection = new OleDbConnection(Globals.putanjaKonekcije);
+            using OleDbConnection connection = new OleDbConnection(Globals.connectionPath);
 
             string query = $"SELECT * FROM cenovnik WHERE datum_kraja = 'null'";
             OleDbCommand command = new OleDbCommand(query, connection);

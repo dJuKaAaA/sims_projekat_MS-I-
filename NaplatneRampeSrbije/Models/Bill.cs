@@ -37,7 +37,7 @@ namespace NaplatneRampeSrbije.Models
             VehicleType = (VehicleType)reader[1];
             Price = Convert.ToDouble(reader[2]);
             Currency = (Currency)reader[3];
-            ExitDate = DateTime.ParseExact(reader[4].ToString(), Globals.formatDatumVreme, null);
+            ExitDate = DateTime.ParseExact(reader[4].ToString(), Globals.dateTimeFormat, null);
             TollBothExited = tollBoothRepo.GetByID(Convert.ToInt32(reader[5]));
             TollBothEntered = tollBoothRepo.GetByID(Convert.ToInt32(reader[6]));
         }

@@ -36,19 +36,19 @@ namespace NaplatneRampeSrbije.ViewsControllers
         {
             if (_loginService.TryLogin(usernameTextBox.Text, passwordBox.Password))
             {
-                if (Globals.ulogovaniRadnik.WorkPlace == WorkPlace.Admininstrator)
+                if (Globals.signedEmployee.WorkPlace == WorkPlace.Admininstrator)
                 {
                     AdministratorMainView administratorMainView = new AdministratorMainView();
                     Close();
                     administratorMainView.Show();
                 }
-                else if (Globals.ulogovaniRadnik.WorkPlace == WorkPlace.Manager)
+                else if (Globals.signedEmployee.WorkPlace == WorkPlace.Manager)
                 {
                     ManagerMainView managerMainView = new ManagerMainView();
                     Close();
                     managerMainView.Show();
                 }
-                else if(Globals.ulogovaniRadnik.WorkPlace == WorkPlace.TollStationHead)
+                else if(Globals.signedEmployee.WorkPlace == WorkPlace.TollStationHead)
                 {
                     TollStationHeadView tollStationHeadView = new TollStationHeadView(
                         new TollStationHeadService(
@@ -57,7 +57,7 @@ namespace NaplatneRampeSrbije.ViewsControllers
                     Close();
                     tollStationHeadView.Show();
                 }
-                else if (Globals.ulogovaniRadnik.WorkPlace == WorkPlace.BillingOfficer)
+                else if (Globals.signedEmployee.WorkPlace == WorkPlace.BillingOfficer)
                 {
                     PhysicalPaymentView physicalPaymentView = new PhysicalPaymentView(
                         new TollBoothService(

@@ -10,7 +10,7 @@ namespace NaplatneRampeSrbije.Models.Repositories.Implementations
     {
         public EquipmentFailure GetByID(int id)
         {
-            using OleDbConnection connection = new OleDbConnection(Globals.putanjaKonekcije);
+            using OleDbConnection connection = new OleDbConnection(Globals.connectionPath);
 
             string query = $"SELECT * FROM kvar WHERE kvar_id = {id}";
             OleDbCommand command = new OleDbCommand(query, connection);
@@ -27,7 +27,7 @@ namespace NaplatneRampeSrbije.Models.Repositories.Implementations
 
         public int GenerateNewID()
         {
-            using OleDbConnection connection = new OleDbConnection(Globals.putanjaKonekcije);
+            using OleDbConnection connection = new OleDbConnection(Globals.connectionPath);
 
             string query = $"SELECT max(kvar_id) FROM kvar";
             OleDbCommand command = new OleDbCommand(query, connection);
@@ -44,7 +44,7 @@ namespace NaplatneRampeSrbije.Models.Repositories.Implementations
 
         public void Save(EquipmentFailure failure)
         {
-            using OleDbConnection connection = new OleDbConnection(Globals.putanjaKonekcije);
+            using OleDbConnection connection = new OleDbConnection(Globals.connectionPath);
 
             string query = $"INSERT INTO kvar (kvar_id, oprema, opis, naplatno_mesto_id, vrsta_kvara) VALUES ({failure.ID}, {Convert.ToInt32(failure.Equipment)}, '{failure.Description}', {failure.TollBooth.ID}, {Convert.ToInt32(failure.FailureType)})";
             OleDbCommand command = new OleDbCommand(query, connection);
@@ -54,7 +54,7 @@ namespace NaplatneRampeSrbije.Models.Repositories.Implementations
 
         public List<EquipmentFailure> GetAll()
         {
-            using OleDbConnection connection = new OleDbConnection(Globals.putanjaKonekcije);
+            using OleDbConnection connection = new OleDbConnection(Globals.connectionPath);
 
             string query = $"SELECT * FROM kvar";
             OleDbCommand command = new OleDbCommand(query, connection);

@@ -11,7 +11,7 @@ namespace NaplatneRampeSrbije.Models.Repositories.Implementations
     {
         public List<Bill> GetAll()
         {
-            using OleDbConnection connection = new OleDbConnection(Globals.putanjaKonekcije);
+            using OleDbConnection connection = new OleDbConnection(Globals.connectionPath);
 
             string query = $"SELECT * FROM racun";
             OleDbCommand command = new OleDbCommand(query, connection);
@@ -28,7 +28,7 @@ namespace NaplatneRampeSrbije.Models.Repositories.Implementations
 
         public int GenerateNewID()
         {
-            using OleDbConnection connection = new OleDbConnection(Globals.putanjaKonekcije);
+            using OleDbConnection connection = new OleDbConnection(Globals.connectionPath);
 
             string query = $"SELECT max(racun_id) FROM racun";
             OleDbCommand command = new OleDbCommand(query, connection);
@@ -45,9 +45,9 @@ namespace NaplatneRampeSrbije.Models.Repositories.Implementations
 
         public void Save(Bill bill)
         {
-            using OleDbConnection connection = new OleDbConnection(Globals.putanjaKonekcije);
+            using OleDbConnection connection = new OleDbConnection(Globals.connectionPath);
 
-            string query = $"INSERT INTO racun (racun_id, vozilo, cena, valuta, vreme_izlaska, izlazak_naplatno_mesto_id, ulazak_naplatno_mesto_id) VALUES ({bill.ID}, {Convert.ToInt32(bill.VehicleType)}, {bill.Price}, {Convert.ToInt32(bill.Currency)}, '{bill.ExitDate.ToString(Globals.formatDatumVreme)}', {bill.TollBothExited.ID}, {bill.TollBothEntered.ID})";
+            string query = $"INSERT INTO racun (racun_id, vozilo, cena, valuta, vreme_izlaska, izlazak_naplatno_mesto_id, ulazak_naplatno_mesto_id) VALUES ({bill.ID}, {Convert.ToInt32(bill.VehicleType)}, {bill.Price}, {Convert.ToInt32(bill.Currency)}, '{bill.ExitDate.ToString(Globals.dateTimeFormat)}', {bill.TollBothExited.ID}, {bill.TollBothEntered.ID})";
             OleDbCommand command = new OleDbCommand(query, connection);
             connection.Open();
             command.ExecuteNonQuery();
