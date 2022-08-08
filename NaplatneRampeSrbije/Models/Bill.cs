@@ -15,12 +15,14 @@ namespace NaplatneRampeSrbije.Models
         public DateTime ExitDate { get; set; }
         public TollBooth TollBothExited { get; set; }
         public TollBooth TollBothEntered { get; set; }
+        public DateTime EntryDate { get; set; }
+        public int AverageMovingSpeed { get; set; }
 
         public Bill()
         {
         }
 
-        public Bill(int id, VehicleType vehicleType, double price, Currency currency, DateTime exitDate, TollBooth tollBothExited, TollBooth tollBothEntered)
+        public Bill(int id, VehicleType vehicleType, double price, Currency currency, DateTime exitDate, TollBooth tollBothExited, TollBooth tollBothEntered, DateTime entryDate, int averageMovingSpeed)
         {
             ID = id;
             VehicleType = vehicleType;
@@ -29,6 +31,8 @@ namespace NaplatneRampeSrbije.Models
             ExitDate = exitDate;
             TollBothExited = tollBothExited;
             TollBothEntered = tollBothEntered;
+            EntryDate = entryDate;
+            AverageMovingSpeed = averageMovingSpeed;
         }
 
         public Bill(OleDbDataReader reader, ITollBoothRepo tollBoothRepo)
@@ -40,6 +44,8 @@ namespace NaplatneRampeSrbije.Models
             ExitDate = DateTime.ParseExact(reader[4].ToString(), Globals.dateTimeFormat, null);
             TollBothExited = tollBoothRepo.GetByID(Convert.ToInt32(reader[5]));
             TollBothEntered = tollBoothRepo.GetByID(Convert.ToInt32(reader[6]));
+            EntryDate = DateTime.ParseExact(reader[7].ToString(), Globals.dateTimeFormat, null);
+            AverageMovingSpeed = Convert.ToInt32(reader[8]);
         }
     }
 }

@@ -35,6 +35,7 @@ namespace NaplatneRampeSrbije.ViewsControllers
             FillTollBoothsComboBox();
             FillVehicleTypeComboBox();
             FillCurrencyComboBox();
+            entryDatePicker.SelectedDate = DateTime.Now;
         }
 
         private void FillTollBoothsComboBox()
@@ -60,14 +61,61 @@ namespace NaplatneRampeSrbije.ViewsControllers
             currencyComboBox.SelectedItem = Currency.Dinar;
         }
 
+        private void ValidateTime()
+        {
+            string hoursText = hoursTextBox.Text;
+            string minutesText = minutesTextBox.Text;
+
+            if (string.IsNullOrEmpty(hoursText)) { throw new Exception("Sat ulaska nije upisan"); }
+            if (string.IsNullOrEmpty(minutesText)) { throw new Exception("Minut ulaska nije upisan"); }
+
+            int hours;
+            try { hours = Convert.ToInt32(hoursText); }
+            catch { throw new Exception("Sat ulaska mora biti broj"); }
+
+            int minutes;
+            try { minutes = Convert.ToInt32(minutesText); }
+            catch { throw new Exception("minut ulaska mora biti broj"); }
+
+            if (hours >= 24 || hours < 0) { throw new Exception("Sat mora biti izmedju 0 i 23"); }
+            if (minutes >= 60 || minutes < 0) { throw new Exception("Sat mora biti izmedju 0 i 59"); }
+
+        }
+
         private void generateBillButton_Click(object sender, RoutedEventArgs e)
         {
-            TollBooth tollBooth = (TollBooth)enteredTollBoothComboBox.SelectedItem;
+            try
+            {
+                ValidateTime();
+            }
+            catch (Exception ex)
+            {
+                _ = MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            if (entryDatePicker.SelectedDate == null)
+            {
+                _ = MessageBox.Show("Datum ulaska nije izabran", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            string entryDateParsed = entryDatePicker.Text + " " + hoursTextBox.Text + ":" + minutesTextBox.Text;
+            DateTime entryDate = DateTime.Parse(entryDateParsed);
+
+            if (entryDate.CompareTo(DateTime.Now) > 0)
+            {
+                _ = MessageBox.Show("Datum ulaska nije validan", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            TollBooth enteredTollBooth = (TollBooth)enteredTollBoothComboBox.SelectedItem;
             VehicleType vehicleType = (VehicleType)vehicleTypeComboBox.SelectedItem;
             Currency currency = (Currency)currencyComboBox.SelectedItem;
+
             DateTime exitDate = DateTime.Now;
 
-            if (_tollBoothService.SameTollStation(tollBooth.ID, Globals.signedEmployee.TollBooth.ID))
+            if (_tollBoothService.SameTollStation(enteredTollBooth.ID, Globals.signedEmployee.TollBooth.ID))
             {
                 _ = MessageBox.Show("Nije validna kombinacija mesta ulaska i izlaska", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
@@ -79,10 +127,12 @@ namespace NaplatneRampeSrbije.ViewsControllers
                     new PricelistRepo(),
                     new ShareRepo(),
                     new TollBoothRepo()),
+                new ShareRepo().GetByEnterExitTollStation(enteredTollBooth.TollStation.ID, Globals.signedEmployee.TollBooth.TollStation.ID),
                 new BillRepo(),
                 vehicleType,
                 currency,
-                tollBooth,
+                enteredTollBooth,
+                entryDate,
                 exitDate);
             Close();
             billGenerationView.Show();

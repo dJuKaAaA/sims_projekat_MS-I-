@@ -47,7 +47,7 @@ namespace NaplatneRampeSrbije.Models.Repositories.Implementations
         {
             using OleDbConnection connection = new OleDbConnection(Globals.connectionPath);
 
-            string query = $"INSERT INTO racun (racun_id, vozilo, cena, valuta, vreme_izlaska, izlazak_naplatno_mesto_id, ulazak_naplatno_mesto_id) VALUES ({bill.ID}, {Convert.ToInt32(bill.VehicleType)}, {bill.Price}, {Convert.ToInt32(bill.Currency)}, '{bill.ExitDate.ToString(Globals.dateTimeFormat)}', {bill.TollBothExited.ID}, {bill.TollBothEntered.ID})";
+            string query = $"INSERT INTO racun (racun_id, vozilo, cena, valuta, vreme_izlaska, izlazak_naplatno_mesto_id, ulazak_naplatno_mesto_id, vreme_ulaska, prosecna_brzina_kretanja) VALUES ({bill.ID}, {Convert.ToInt32(bill.VehicleType)}, {bill.Price}, {Convert.ToInt32(bill.Currency)}, '{bill.ExitDate.ToString(Globals.dateTimeFormat)}', {bill.TollBothExited.ID}, {bill.TollBothEntered.ID}, '{bill.EntryDate.ToString(Globals.dateTimeFormat)}', {bill.AverageMovingSpeed})";
             OleDbCommand command = new OleDbCommand(query, connection);
             connection.Open();
             command.ExecuteNonQuery();

@@ -12,29 +12,35 @@ namespace NaplatneRampeSrbije.ViewsControllers
     public partial class BillGenerationView : Window
     {
         private readonly IBillService _billService;
+        private readonly Share _share;
         private readonly VehicleType _vehicleType;
         private readonly Currency _currency;
-        private readonly TollBooth _tollBooth;
+        private readonly TollBooth _enteredTollBooth;
+        private readonly DateTime _entryDate;
         private readonly DateTime _exitDate;
         private readonly double _forPayment;
 
         public BillGenerationView(
             IBillService billService,
+            Share share,
             IBillRepo billRepo,
             VehicleType vehicleType,
             Currency currency,
             TollBooth tollBooth,
+            DateTime entryDate,
             DateTime exitDate)
         {
             InitializeComponent();
             _billService = billService;
+            _share = share;
             _vehicleType = vehicleType;
             _currency = currency;
-            _tollBooth = tollBooth;
+            _enteredTollBooth = tollBooth;
+            _entryDate = entryDate;
             _exitDate = exitDate;
 
-            tollBoothEnteredTextBox.Items.Add(_tollBooth);
-            tollBoothEnteredTextBox.SelectedItem = _tollBooth;
+            tollBoothEnteredTextBox.Items.Add(_enteredTollBooth);
+            tollBoothEnteredTextBox.SelectedItem = _enteredTollBooth;
             vehicleTypeComboBox.Items.Add(_vehicleType);
             vehicleTypeComboBox.SelectedItem = _vehicleType;
             currencyComboBox.Items.Add(_currency);
@@ -42,10 +48,21 @@ namespace NaplatneRampeSrbije.ViewsControllers
             exitDateTextBox.Text = _exitDate.ToString(Globals.dateTimeFormat);
             billIDTextBox.Text = billRepo.GenerateNewID().ToString();
 
-            _forPayment = _billService.GetPriceForShareAndVehicle(_tollBooth, _vehicleType, Currency.Dinar);
-            double forPaymentDisplay = _billService.GetPriceForShareAndVehicle(_tollBooth, _vehicleType, _currency);
+            _forPayment = _billService.GetPriceForShareAndVehicle(_enteredTollBooth, _vehicleType, Currency.Dinar);
+            double forPaymentDisplay = _billService.GetPriceForShareAndVehicle(_enteredTollBooth, _vehicleType, _currency);
 
             paymentSumTextBox.Text = forPaymentDisplay.ToString();
+            averageSpeedTextBox.Text = GetAverageSpeed().ToString();
+            speedLimitTextBox.Text = _share.SpeedLimit.ToString();
+        }
+
+        private int GetAverageSpeed()
+        {
+            double roadLength = _share.Length;
+            TimeSpan travelTimePassed = _exitDate.Subtract(_entryDate);
+            double travelTime = travelTimePassed.TotalHours;
+            double averageMovingSpeed = roadLength / travelTime;
+            return (int)averageMovingSpeed;
         }
 
         private void payButton_Click(object sender, RoutedEventArgs e)
@@ -56,7 +73,7 @@ namespace NaplatneRampeSrbije.ViewsControllers
             Currency currency = (Currency)currencyComboBox.SelectedItem;
             DateTime exitDate = DateTime.Parse(exitDateTextBox.Text);
             int exitedTollBoothID = Globals.signedEmployee.TollBooth.ID;
-            int enteredTollBoothID = _tollBooth.ID;
+            int enteredTollBoothID = _enteredTollBooth.ID;
 
             double paidSum;
             double billChange;
@@ -80,8 +97,13 @@ namespace NaplatneRampeSrbije.ViewsControllers
             try
             {
 
-                _billService.SaveBill(billID, vehicleType, _forPayment, currency, exitDate, exitedTollBoothID, enteredTollBoothID);
+                _billService.SaveBill(billID, vehicleType, _forPayment, currency, exitDate, exitedTollBoothID, enteredTollBoothID, _entryDate, GetAverageSpeed());
                 _ = MessageBox.Show($"Uspešno plaćanje, Kusur ({currency}): {billChange}", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                if (GetAverageSpeed() > _share.SpeedLimit)
+                {
+                    _ = MessageBox.Show("Ograničenje brzine je prekoračeno! Slediće novčana kazna ili sudski postupak!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
 
                 PhysicalPaymentView physicalPaymentView = new PhysicalPaymentView(
                     new TollBoothService(

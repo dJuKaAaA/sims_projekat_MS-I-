@@ -12,18 +12,20 @@ namespace NaplatneRampeSrbije.Models
         public int Length { get; set; }
         public TollStation TollStationEntered { get; set; }
         public TollStation TollStatioExited { get; set; }
+        public int SpeedLimit { get; set; }
 
         public Share()
         {
 
         }
 
-        public Share(int id, int length, TollStation tollStationEntered, TollStation tollStationExited)
+        public Share(int id, int length, TollStation tollStationEntered, TollStation tollStationExited, int speedLimit)
         {
             ID = id;
             Length = length;
             TollStationEntered = tollStationEntered;
             TollStatioExited = tollStationExited;
+            SpeedLimit = speedLimit;
         }
 
         public Share(OleDbDataReader reader, ITollStationRepo tollStationRepo)
@@ -32,6 +34,7 @@ namespace NaplatneRampeSrbije.Models
             Length = Convert.ToInt32(reader[1]);
             TollStationEntered = tollStationRepo.GetByID(Convert.ToInt32(reader[2]));
             TollStatioExited = tollStationRepo.GetByID(Convert.ToInt32(reader[3]));
+            SpeedLimit = Convert.ToInt32(reader[4]);
         }
     }
 }

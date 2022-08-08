@@ -673,6 +673,56 @@
                     </ComboBox.ItemContainerStyle>
                 </ComboBox>
             </Grid>
+            <Grid Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="Datum ulaska"
+                           Grid.Row="0" 
+                           FontSize="18"/>
+                <DatePicker
+                    Grid.Row="1"
+                    MinWidth="200"
+                    x:Name="entryDatePicker">
+                    <DatePicker.CalendarStyle>
+                        <Style TargetType="{x:Type Calendar}">
+                            <Style.Setters>
+                                <Setter Property="Background" Value="Black" />
+                            </Style.Setters>
+                        </Style>
+                    </DatePicker.CalendarStyle>
+                </DatePicker>
+            </Grid>
+            <Grid Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="Vreme ulaska: sati"
+                           Grid.Row="0" 
+                           FontSize="18"/>
+                <TextBox
+                    Grid.Row="1"
+                    x:Name="hoursTextBox"
+                    MinWidth="200" />
+            </Grid>
+            <Grid Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="Vreme ulaska: minuti"
+                           Grid.Row="0" 
+                           FontSize="18"/>
+                <TextBox 
+                    Grid.Row="1"
+                    x:Name="minutesTextBox"
+                    MinWidth="200" />
+            </Grid>
         </WrapPanel>
         <WrapPanel Grid.Row="2"
                    Grid.Column="1"
@@ -711,6 +761,6 @@
             Content="Odjavi se"
             Grid.Row="4"
             Click="logoutButton_Click" 
-            Margin="553,69,50,-83" Grid.Column="1" />
+            Margin="559,10,44,-24" Grid.Column="1" />
     </Grid>
 </Window>

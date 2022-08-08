@@ -23,12 +23,12 @@ namespace NaplatneRampeSrbije.Models.Services.Implementations
             _tollBoothRepo = tollBoothRepo;
         }
 
-        public void SaveBill(int billID, VehicleType vehicleType, double price, Currency currency, DateTime ExitDate, int tollBoothExitedID, int tollBoothEnteredID)
+        public void SaveBill(int billID, VehicleType vehicleType, double price, Currency currency, DateTime exitDate, int tollBoothExitedID, int tollBoothEnteredID, DateTime entryDate, int averageMovingSpeed)
         {
             TollBooth tollBoothEntered = _tollBoothRepo.GetByID(tollBoothEnteredID);
             TollBooth tollBoothExited = _tollBoothRepo.GetByID(tollBoothExitedID);
 
-            Bill bill = new Bill(billID, vehicleType, price, currency, ExitDate, tollBoothExited, tollBoothEntered);
+            Bill bill = new Bill(billID, vehicleType, price, currency, exitDate, tollBoothExited, tollBoothEntered, entryDate, averageMovingSpeed);
 
             _billRepo.Save(bill);
         }

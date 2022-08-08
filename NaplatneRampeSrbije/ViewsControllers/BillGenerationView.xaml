@@ -14,13 +14,13 @@
         <Label 
             Content="Mesto ulaska"
             HorizontalAlignment="Left"
-            Margin="56,66,0,0" 
+            Margin="56,32,0,0" 
             VerticalAlignment="Top"/>
         <ComboBox 
             x:Name="tollBoothEnteredTextBox" 
             IsReadOnly="True" 
             HorizontalAlignment="Left"
-            Margin="56,99,0,0" 
+            Margin="56,58,0,0" 
             VerticalAlignment="Top" 
             Width="180">
             <ComboBox.Resources>
@@ -229,13 +229,13 @@
         <Label
             Content="Vrsta vozila" 
             HorizontalAlignment="Left" 
-            Margin="263,68,0,0" 
+            Margin="263,33,0,0" 
             VerticalAlignment="Top"/>
         <ComboBox 
             x:Name="vehicleTypeComboBox" 
             IsReadOnly="True" 
             HorizontalAlignment="Left" 
-            Margin="263,99,0,0" 
+            Margin="263,58,0,0" 
             VerticalAlignment="Top"
             Width="180">
             <ComboBox.Resources>
@@ -444,29 +444,29 @@
         <Label 
             Content="Vreme izlaska" 
             HorizontalAlignment="Left"
-            Margin="469,66,0,0"
+            Margin="469,34,0,0"
             VerticalAlignment="Top"/>
         <TextBox 
             x:Name="exitDateTextBox" 
             IsReadOnly="True" 
             HorizontalAlignment="Left"
-            Margin="469,99,0,0"
+            Margin="474,58,0,0"
             Text=""
             TextWrapping="Wrap" 
             VerticalAlignment="Top" 
-            Width="180"/>
+            Width="175"/>
 
         <Label 
             Content="Valuta" 
             HorizontalAlignment="Left"
-            Margin="263,144,0,0" 
+            Margin="263,103,0,0" 
             VerticalAlignment="Top" 
             Width="180"/>
         <ComboBox
             x:Name="currencyComboBox" 
             IsReadOnly="True" 
             HorizontalAlignment="Left" 
-            Margin="263,175,0,0" 
+            Margin="263,134,0,0" 
             VerticalAlignment="Top" 
             Width="180">
             <ComboBox.Resources>
@@ -675,29 +675,58 @@
         <Label 
             Content="Iznos za plaćanje" 
             HorizontalAlignment="Left" 
-            Margin="56,146,0,0"
+            Margin="56,105,0,0"
             VerticalAlignment="Top"/>
         <TextBox 
             x:Name="paymentSumTextBox" 
             IsReadOnly="True" 
             HorizontalAlignment="Left"
-            Margin="56,177,0,0"
+            Margin="56,136,0,0"
             Text="" 
             TextWrapping="Wrap" 
             VerticalAlignment="Top" 
             Width="180"/>
 
-        <Label Content="Uplaćeno" HorizontalAlignment="Left" Margin="56,287,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="paidSumTextBox" HorizontalAlignment="Left" Margin="56,318,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="180" />
+        <Label Content="Unesi sumu" HorizontalAlignment="Left" Margin="56,291,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="paidSumTextBox" HorizontalAlignment="Left" Margin="56,322,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="180" />
 
-        <Label Content="Račun ID" HorizontalAlignment="Left" Margin="474,146,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="billIDTextBox" IsReadOnly="True" HorizontalAlignment="Left" Margin="474,177,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="175"/>
+        <Label Content="Račun ID" HorizontalAlignment="Left" Margin="474,105,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="billIDTextBox" IsReadOnly="True" HorizontalAlignment="Left" Margin="474,136,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="175"/>
 
         <Button 
             x:Name="goBackButton"
             Content="Idi nazad"
             Click="goBackButton_Click" Margin="469,373,151,46"/>
         <Button x:Name="payButton" Content="Plati" HorizontalAlignment="Left" Margin="469,306,0,0" VerticalAlignment="Top" Width="180" Click="payButton_Click" RenderTransformOrigin="0.513,0.653" Height="32"/>
+
+        <TextBox 
+            x:Name="averageSpeedTextBox" 
+            IsReadOnly="True" 
+            HorizontalAlignment="Left"
+            Margin="56,0,0,0"
+            Text="" 
+            TextWrapping="Wrap" 
+            VerticalAlignment="Center" 
+            Width="180"/>
+        <Label 
+            Content="Prosečna brzina kretanja" 
+            HorizontalAlignment="Left" 
+            Margin="56,186,0,0"
+            VerticalAlignment="Top"/>
+        <TextBox 
+            x:Name="speedLimitTextBox" 
+            IsReadOnly="True" 
+            HorizontalAlignment="Left"
+            Margin="263,0,0,0"
+            Text="" 
+            TextWrapping="Wrap" 
+            VerticalAlignment="Center" 
+            Width="180"/>
+        <Label 
+            Content="Dozvoljena brzina kretanja" 
+            HorizontalAlignment="Left" 
+            Margin="263,186,0,0"
+            VerticalAlignment="Top"/>
 
     </Grid>
 </Window>
