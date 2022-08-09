@@ -43,9 +43,9 @@ namespace NaplatneRampeSrbije.ViewsControllers
         private void goBackButton_Click(object sender, RoutedEventArgs e)
         {
             TollStationHeadView tollStationHeadView = new TollStationHeadView(
-                new TollStationHeadService(
-                    new TollBoothRepo(),
-                    new TollStationRepo()));
+                    new TollStationHeadService(
+                        new TollBoothRepo(),
+                        new TollStationRepo()));
             Close();
             tollStationHeadView.Show();
         }

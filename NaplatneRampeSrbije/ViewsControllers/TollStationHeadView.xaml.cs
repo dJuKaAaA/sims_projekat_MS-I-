@@ -78,5 +78,14 @@ namespace NaplatneRampeSrbije.ViewsControllers
             Close();
             tollStationFailuresView.Show();
         }
+
+        private void currentPricelistButton_Click(object sender, RoutedEventArgs e)
+        {
+            CurrentPricelistView currentPricelistView = new CurrentPricelistView(
+                new PricelistRepo(),
+                new PricelistItemRepo());
+            Close();
+            currentPricelistView.Show();
+        }
     }
 }

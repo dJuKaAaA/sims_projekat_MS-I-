@@ -18,6 +18,7 @@
             <RowDefinition />
             <RowDefinition />
             <RowDefinition />
+            <RowDefinition />
             <RowDefinition Height ="50" />
         </Grid.RowDefinitions>
         <Button 
@@ -25,30 +26,36 @@
             Grid.Row="1"
             Content="Prijava kvara" 
             Click="failureReportButton_Click"
-            Margin="100 15" />
+            Margin="100 10" />
         <Button 
             x:Name="failureDisplayButton"  
             Grid.Row="2"
             Content="Pregled kvarova" 
-            Margin="100 15"
+            Margin="100 10"
             Click="failureDisplayButton_Click"/>
         <Button 
             x:Name="createReportButton" 
             Grid.Row="3" 
             Content="Kreiranje izveštaja" 
-            Margin="100 15"
+            Margin="100 10"
             Click="createReportButton_Click" />
         <Button
             x:Name="tollBoothStatusButton"
-            Content="Prikazi status opreme naplatnih mesta"
+            Content="Prikaži status opreme naplatnih mesta"
             Grid.Row="4"
-            Margin="100 15" 
+            Margin="100 10" 
             Click="tollBoothStatusButton_Click" />
+        <Button
+            x:Name="currentPricelistButton"
+            Content="Prikaži trenutni cenovnik"
+            Grid.Row="5"
+            Margin="100 10" 
+            Click="currentPricelistButton_Click" />
         <Button
             x:Name="logoutButton"
             Content="Odjavi se"
-            Grid.Row="5"
+            Grid.Row="6"
             Click="logoutButton_Click" 
-            Margin="100 15" />
+            Margin="100 10" />
     </Grid>
 </Window>

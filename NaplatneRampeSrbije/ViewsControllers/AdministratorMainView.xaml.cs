@@ -71,6 +71,15 @@ namespace NaplatneRampeSrbije.ViewsControllers
             loginWindow.Show();
         }
 
+        private void currentPricelistButton_Click(object sender, RoutedEventArgs e)
+        {
+            CurrentPricelistView currentPricelistView = new CurrentPricelistView(
+                new PricelistRepo(),
+                new PricelistItemRepo());
+            Close();
+            currentPricelistView.Show();
+        }
+
         private void logoutButton_Click(object sender, RoutedEventArgs e)
         {
             Logout();

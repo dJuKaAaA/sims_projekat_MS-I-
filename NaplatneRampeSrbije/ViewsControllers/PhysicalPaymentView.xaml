@@ -790,11 +790,19 @@
                     x:Name="cameraFailureIndicatorCheckBox" 
                     Click="cameraFailureIndicatorCheckBox_Click" />
                 <Button
+                    x:Name="currentPricelistButton"
+                    Content="Prikaži trenutni cenovnik"
+                    Grid.Row="4"
+                    Click="currentPricelistButton_Click" 
+                    Margin="100 0 0 0"
+                    Width="150"
+                    Height="50" />
+                <Button
                     x:Name="logoutButton"
                     Content="Odjavi se"
                     Grid.Row="4"
                     Click="logoutButton_Click" 
-                    Margin="250 0 0 0"
+                    Margin="20 0 0 0"
                     Width="150"
                     Height="50" />
             </WrapPanel>

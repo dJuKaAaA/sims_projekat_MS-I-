@@ -17,6 +17,7 @@
             <RowDefinition />
             <RowDefinition />
             <RowDefinition />
+            <RowDefinition />
             <RowDefinition Height="50" />
         </Grid.RowDefinitions>
 
@@ -25,24 +26,30 @@
             Content="Naplatno mesto CRUD"
             Grid.Row="1"
             Click="tollBoothCRUDButton_Click" 
-            Margin="100 20" />
+            Margin="100 15" />
         <Button
             x:Name="employeeCRUDButton"
             Content="Korisnik CRUD"
             Grid.Row="2"
             Click="employeeCRUDButton_Click" 
-            Margin="100 20" />
+            Margin="100 15" />
         <Button
             x:Name="tollStationCRUDButton"
             Content="Naplatna stanica CRUD"
             Grid.Row="3"
             Click="tollStationCRUDButton_Click" 
-            Margin="100 20" />
+            Margin="100 15" />
+        <Button
+            x:Name="currentPricelistButton"
+            Content="Prikaži trenutni cenovnik"
+            Grid.Row="4"
+            Click="currentPricelistButton_Click" 
+            Margin="100 15" />
         <Button
             x:Name="logoutButton"
             Content="Odjavi se"
-            Grid.Row="4"
+            Grid.Row="5"
             Click="logoutButton_Click" 
-            Margin="100 20" />
+            Margin="100 15" />
     </Grid>
 </Window>

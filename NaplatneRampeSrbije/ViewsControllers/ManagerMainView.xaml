@@ -17,6 +17,7 @@
             <RowDefinition />
             <RowDefinition />
             <RowDefinition />
+            <RowDefinition />
             <RowDefinition Height="50" />
         </Grid.RowDefinitions>
 
@@ -25,25 +26,31 @@
             Content="Statistika o valuti na naplatnim stanicama"
             Grid.Row="1"
             Click="currencyStatisticButton_Click" 
-            Margin="100 20" />
+            Margin="100 15" />
         <Button
             x:Name="vehicleDepartingStatisticButton"
             Content="Statistika o prolasku vozila kroz naplatna mesta"
             Grid.Row="2"
             Click="vehicleDepartingStatisticButton_Click" 
-            Margin="100 20" />
+            Margin="100 15" />
         <Button
             x:Name="paymentStatisticButton"
             Content="Statistika o naplatama"
             Grid.Row="3"
             Click="paymentStatisticButton_Click" 
-            Margin="100 20" />
+            Margin="100 15" />
+        <Button
+            x:Name="currentPricelistButton"
+            Content="Prikaži trenutni cenovnik"
+            Grid.Row="4"
+            Click="currentPricelistButton_Click" 
+            Margin="100 15" />
         <Button
             x:Name="logoutButton"
             Content="Odjavi se"
-            Grid.Row="4"
+            Grid.Row="5"
             Click="logoutButton_Click" 
-            Margin="100 20" />
+            Margin="100 15" />
 
     </Grid>
 </Window>
