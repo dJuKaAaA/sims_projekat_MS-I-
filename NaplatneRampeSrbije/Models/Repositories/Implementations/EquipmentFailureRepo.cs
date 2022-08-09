@@ -46,17 +46,17 @@ namespace NaplatneRampeSrbije.Models.Repositories.Implementations
         {
             using OleDbConnection connection = new OleDbConnection(Globals.connectionPath);
 
-            string query = $"INSERT INTO kvar (kvar_id, oprema, opis, naplatno_mesto_id, vrsta_kvara) VALUES ({failure.ID}, {Convert.ToInt32(failure.Equipment)}, '{failure.Description}', {failure.TollBooth.ID}, {Convert.ToInt32(failure.FailureType)})";
+            string query = $"INSERT INTO kvar (kvar_id, oprema, opis, naplatno_mesto_id, vrsta_kvara, popravljeno) VALUES ({failure.ID}, {Convert.ToInt32(failure.Equipment)}, '{failure.Description}', {failure.TollBooth.ID}, {Convert.ToInt32(failure.FailureType)}, {failure.IsFixed})";
             OleDbCommand command = new OleDbCommand(query, connection);
             connection.Open();
             command.ExecuteNonQuery();
         }
 
-        public List<EquipmentFailure> GetAll()
+        public List<EquipmentFailure> GetAllNotFixed()
         {
             using OleDbConnection connection = new OleDbConnection(Globals.connectionPath);
 
-            string query = $"SELECT * FROM kvar";
+            string query = $"SELECT * FROM kvar WHERE popravljeno = FALSE";
             OleDbCommand command = new OleDbCommand(query, connection);
             connection.Open();
             OleDbDataReader reader = command.ExecuteReader();
@@ -67,6 +67,16 @@ namespace NaplatneRampeSrbije.Models.Repositories.Implementations
             }
             reader.Close();
             return equipmentFailures;
+        }
+
+        public void FixByID(int id)
+        {
+            using OleDbConnection connection = new OleDbConnection(Globals.connectionPath);
+
+            string query = $"UPDATE kvar SET popravljeno = TRUE WHERE kvar_id = {id}";
+            OleDbCommand command = new OleDbCommand(query, connection);
+            connection.Open();
+            command.ExecuteNonQuery();
         }
     }
 }

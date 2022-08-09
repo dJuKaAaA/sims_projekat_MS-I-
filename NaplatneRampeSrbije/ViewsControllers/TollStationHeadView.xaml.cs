@@ -69,5 +69,14 @@ namespace NaplatneRampeSrbije.ViewsControllers
         {
             Logout();
         }
+
+        private void tollBoothStatusButton_Click(object sender, RoutedEventArgs e)
+        {
+            TollStationFailuresView tollStationFailuresView = new TollStationFailuresView(
+                new EquipmentFailureRepo(),
+                new TollBoothRepo());
+            Close();
+            tollStationFailuresView.Show();
+        }
     }
 }

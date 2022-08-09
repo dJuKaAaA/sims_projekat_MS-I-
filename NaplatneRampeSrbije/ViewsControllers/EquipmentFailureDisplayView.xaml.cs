@@ -34,7 +34,7 @@ namespace NaplatneRampeSrbije.ViewsControllers
         public void FillEquipmentFailureDataGrid()
         {
             equipmentFailureDataGrid.Items.Clear();
-            foreach (EquipmentFailure failure in _equipmentFailureRepo.GetAll())
+            foreach (EquipmentFailure failure in _equipmentFailureRepo.GetAllNotFixed())
             {
                 equipmentFailureDataGrid.Items.Add(failure);
             }

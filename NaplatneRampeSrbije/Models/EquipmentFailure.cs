@@ -11,19 +11,21 @@ namespace NaplatneRampeSrbije.Models
         public string Description { get; set; }
         public FailureType FailureType { get; set; }
         public TollBooth TollBooth { get; set; }
+        public bool IsFixed { get; set; }
 
         public EquipmentFailure()
         {
 
         }
 
-        public EquipmentFailure(int id, Equipment equipment, string description, FailureType failureType, TollBooth tollBoth)
+        public EquipmentFailure(int id, Equipment equipment, string description, FailureType failureType, TollBooth tollBoth, bool isFixed)
         {
             ID = id;
             Equipment = equipment;
             Description = description;
             FailureType = failureType;
             TollBooth = tollBoth;
+            IsFixed = isFixed;
         }
 
         public EquipmentFailure(OleDbDataReader reader, ITollBoothRepo tollBoothRepo)
@@ -33,6 +35,7 @@ namespace NaplatneRampeSrbije.Models
             Description = reader[2].ToString();
             TollBooth = tollBoothRepo.GetByID(Convert.ToInt32(reader[3]));
             FailureType = (FailureType)reader[4];
+            IsFixed = Convert.ToBoolean(reader[5]);
         }
     }
 }

@@ -24,7 +24,8 @@ namespace NaplatneRampeSrbije.Models.Services.Implementations
                 equipment,
                 description,
                 failureType,
-                _tollBoothRepo.GetByID(tollBoothID));
+                _tollBoothRepo.GetByID(tollBoothID),
+                false);
 
             _equipmentFailureRepo.Save(equipmentFailure);
         }

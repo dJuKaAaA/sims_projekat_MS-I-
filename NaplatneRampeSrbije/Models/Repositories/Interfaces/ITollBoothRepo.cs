@@ -13,5 +13,6 @@ namespace NaplatneRampeSrbije.Models.Repositories.Interfaces
         void Delete(int id);
         int GenerateNewID();
         Dictionary<TollBooth, double> GetEarnings();
+        List<TollBooth> GetAllByTollStationID(int tollStationID);
     }
 }

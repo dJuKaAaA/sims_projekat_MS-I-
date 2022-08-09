@@ -106,5 +106,22 @@ namespace NaplatneRampeSrbije.Models.Repositories.Implementations
             reader.Close();
             return earnings;
         }
+
+        public List<TollBooth> GetAllByTollStationID(int tollStationID)
+        {
+            using OleDbConnection connection = new OleDbConnection(Globals.connectionPath);
+
+            string query = $"SELECT * FROM naplatno_mesto WHERE naplatna_stanica_id = {tollStationID}";
+            OleDbCommand command = new OleDbCommand(query, connection);
+            connection.Open();
+            OleDbDataReader reader = command.ExecuteReader();
+            List<TollBooth> tollBooths = new List<TollBooth>();
+            while (reader.Read())
+            {
+                tollBooths.Add(new TollBooth(reader, new TollStationRepo()));
+            }
+            reader.Close();
+            return tollBooths;
+        }
     }
 }

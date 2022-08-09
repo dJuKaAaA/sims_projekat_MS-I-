@@ -63,7 +63,8 @@ namespace NaplatneRampeSrbije.ViewsControllers
                         new TollBoothService(
                             new TollBoothRepo(),
                             new BillRepo()),
-                        new TollBoothRepo());
+                        new TollBoothRepo(),
+                        new EquipmentFailureRepo());
                     Close();
                     physicalPaymentView.Show();
                 }

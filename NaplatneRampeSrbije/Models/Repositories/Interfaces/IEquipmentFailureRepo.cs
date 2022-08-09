@@ -9,6 +9,7 @@ namespace NaplatneRampeSrbije.Models.Repositories.Interfaces
         EquipmentFailure GetByID(int id);
         int GenerateNewID();
         void Save(EquipmentFailure failure);
-        List<EquipmentFailure> GetAll();
+        List<EquipmentFailure> GetAllNotFixed();
+        void FixByID(int id);
     }
 }

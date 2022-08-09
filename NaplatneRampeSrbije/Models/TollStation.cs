@@ -30,7 +30,7 @@ namespace NaplatneRampeSrbije.Models
 
         public override string ToString()
         {
-            return $"Adresa: {Address}";
+            return $"{Address}";
         }
 
         public override bool Equals(object obj)

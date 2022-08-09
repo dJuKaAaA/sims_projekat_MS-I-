@@ -747,20 +747,57 @@
                     MinWidth="150"
                     IsEnabled="False"
                     Click="rampControlButton_Click" />
+            <CheckBox 
+                Content="Rampa je blokirana"
+                x:Name="rampBlockedCheckBox"
+                IsChecked="False"
+                IsEnabled="False"
+                FontSize="16" 
+                Margin="20"/>
         </WrapPanel>
-        <CheckBox Content="Rampa je blokirana"
-                  x:Name="rampBlockedCheckBox"
-                  IsChecked="False"
-                  IsEnabled="False" 
-                  Grid.Row="3"
-                  Grid.Column="1"
-                  FontSize="16" 
-                  Margin="20"/>
-        <Button
-            x:Name="logoutButton"
-            Content="Odjavi se"
-            Grid.Row="4"
-            Click="logoutButton_Click" 
-            Margin="559,10,44,-24" Grid.Column="1" />
+        <Grid
+            Grid.Row="3"
+            Grid.Column="1"
+            Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <TextBlock 
+                Text="Stanje opreme:"
+                Grid.Row="0"
+                FontSize="20"
+                Margin="0 10" />
+            <WrapPanel
+                Grid.Row="1">
+                <CheckBox 
+                    Margin="10"
+                    Content="Rampa"
+                    FontSize="16"
+                    x:Name="rampFailureIndicatorCheckBox" 
+                    Click="rampFailureIndicatorCheckBox_Click" />
+                <CheckBox 
+                    Margin="10"
+                    Content="Svetla"
+                    FontSize="16"
+                    x:Name="lightsFailureIndicatorCheckBox" 
+                    Click="lightsFailureIndicatorCheckBox_Click" />
+                <CheckBox 
+                    Margin="10"
+                    Content="Kamera"
+                    FontSize="16"
+                    x:Name="cameraFailureIndicatorCheckBox" 
+                    Click="cameraFailureIndicatorCheckBox_Click" />
+                <Button
+                    x:Name="logoutButton"
+                    Content="Odjavi se"
+                    Grid.Row="4"
+                    Click="logoutButton_Click" 
+                    Margin="250 0 0 0"
+                    Width="150"
+                    Height="50" />
+            </WrapPanel>
+        </Grid>
     </Grid>
 </Window>
