@@ -13,5 +13,6 @@ namespace NaplatneRampeSrbije.Models.Repositories.Interfaces
         void Update(TollStation tollStation);
         void Delete(int id);
         Dictionary<TollStation, double> GetEarnings();
+        public List<int> GetTollStationsByShare(TollStation tollStation);
     }
 }

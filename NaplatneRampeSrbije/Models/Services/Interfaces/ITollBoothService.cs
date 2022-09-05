@@ -6,7 +6,7 @@ namespace NaplatneRampeSrbije.Models.Services.Interfaces
 {
     public interface ITollBoothService
     {
-        bool SameTollStation(int tollBoothID1, int tollBoothID2);
+        bool SameTollStation(TollBooth tollBooth1, TollBooth tollBooth2);
         VehicleType GetMostFrequentlyDepartingVehicle(int tollBoothID);
     }
 }

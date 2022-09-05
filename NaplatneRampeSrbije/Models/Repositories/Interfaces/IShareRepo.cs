@@ -8,5 +8,9 @@ namespace NaplatneRampeSrbije.Models.Repositories.Interfaces
     {
         Share GetByID(int id);
         Share GetByEnterExitTollStation(int enteredTollStationID, int exitedTollStationID);
+
+        public int GenerateNewID();
+        public void Save(Share share);
+
     }
 }

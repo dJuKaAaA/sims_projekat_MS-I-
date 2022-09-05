@@ -54,6 +54,7 @@ namespace NaplatneRampeSrbije.ViewsControllers
         private void createReportButton_Click(object sender, RoutedEventArgs e)
         {
             _tollStationHeadService.GenerateReport();
+            MessageBox.Show("Izvestaj kreiran u fajlu");
         }
 
         private void Logout()
@@ -86,6 +87,12 @@ namespace NaplatneRampeSrbije.ViewsControllers
                 new PricelistItemRepo());
             Close();
             currentPricelistView.Show();
+        }
+
+        private void createAShareButton_Click(object sender, RoutedEventArgs e)
+        {
+            ShareCreationView shareCreationView = new ShareCreationView(new TollStationRepo(), new ShareRepo());
+            shareCreationView.Show();
         }
     }
 }

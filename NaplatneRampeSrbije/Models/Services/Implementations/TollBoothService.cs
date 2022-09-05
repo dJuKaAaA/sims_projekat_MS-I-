@@ -18,11 +18,8 @@ namespace NaplatneRampeSrbije.Models.Services.Implementations
             _billRepo = billRepo;
         }
 
-        public bool SameTollStation(int tollBoothID1, int tollBoothID2)
+        public bool SameTollStation(TollBooth tollBooth1, TollBooth tollBooth2)
         {
-            TollBooth tollBooth1 = _tollBoothRepo.GetByID(tollBoothID1);
-            TollBooth tollBooth2 = _tollBoothRepo.GetByID(tollBoothID2);
-
             return tollBooth1.TollStation.ID == tollBooth2.TollStation.ID;
         }
         public VehicleType GetMostFrequentlyDepartingVehicle(int tollBoothID)

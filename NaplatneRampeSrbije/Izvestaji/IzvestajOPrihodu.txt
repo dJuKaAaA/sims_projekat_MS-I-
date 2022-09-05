@@ -1,9 +1,9 @@
 Izvestaj o zaradi na naplatnim mestima:
 ---------------------------------------
-1:200
-2:500
-3:200
-4:300
+ID naplatnog mesta: 1; Adresa: zajecar, 19000, pere perica, 123: 500
+ID naplatnog mesta: 2; Adresa: zajecar, 19000, pere perica, 123: 500
+ID naplatnog mesta: 3; Adresa: zajecar, 19000, pere perica, 123: 200
+ID naplatnog mesta: 4; Adresa: zajecar, 19000, pere perica, 123: 300
 Izvestaj o zaradi na naplatnim stanicama:
 ---------------------------------------
-1:1200
+zajecar, 19000, pere perica, 123: 1500

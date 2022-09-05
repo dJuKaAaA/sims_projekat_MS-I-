@@ -18,6 +18,7 @@ namespace NaplatneRampeSrbije.ViewsControllers
         private readonly TollBooth _enteredTollBooth;
         private readonly DateTime _entryDate;
         private readonly DateTime _exitDate;
+        private readonly String _entranceTime;
         private readonly double _forPayment;
 
         public BillGenerationView(
@@ -28,7 +29,8 @@ namespace NaplatneRampeSrbije.ViewsControllers
             Currency currency,
             TollBooth tollBooth,
             DateTime entryDate,
-            DateTime exitDate)
+            DateTime exitDate,
+            String entranceTime)
         {
             InitializeComponent();
             _billService = billService;
@@ -38,7 +40,8 @@ namespace NaplatneRampeSrbije.ViewsControllers
             _enteredTollBooth = tollBooth;
             _entryDate = entryDate;
             _exitDate = exitDate;
-
+            _entranceTime = entranceTime;
+            timeOfEntranceTextBox.Text = _entranceTime;
             tollBoothEnteredTextBox.Items.Add(_enteredTollBooth);
             tollBoothEnteredTextBox.SelectedItem = _enteredTollBooth;
             vehicleTypeComboBox.Items.Add(_vehicleType);
@@ -55,7 +58,6 @@ namespace NaplatneRampeSrbije.ViewsControllers
             averageSpeedTextBox.Text = GetAverageSpeed().ToString();
             speedLimitTextBox.Text = _share.SpeedLimit.ToString();
         }
-
         private int GetAverageSpeed()
         {
             double roadLength = _share.Length;
@@ -96,13 +98,14 @@ namespace NaplatneRampeSrbije.ViewsControllers
 
             try
             {
-
-                _billService.SaveBill(billID, vehicleType, _forPayment, currency, exitDate, exitedTollBoothID, enteredTollBoothID, _entryDate, GetAverageSpeed());
-                _ = MessageBox.Show($"Uspešno plaćanje, Kusur ({currency}): {billChange}", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-
                 if (GetAverageSpeed() > _share.SpeedLimit)
                 {
                     _ = MessageBox.Show("Ograničenje brzine je prekoračeno! Slediće novčana kazna ili sudski postupak!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+                else
+                {
+                    _billService.SaveBill(billID, vehicleType, _forPayment, currency, exitDate, exitedTollBoothID, enteredTollBoothID, _entryDate, GetAverageSpeed());
+                    _ = MessageBox.Show($"Uspešno plaćanje, Kusur ({currency}): {billChange}", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
 
                 PhysicalPaymentView physicalPaymentView = new PhysicalPaymentView(
@@ -110,7 +113,8 @@ namespace NaplatneRampeSrbije.ViewsControllers
                         new TollBoothRepo(),
                         new BillRepo()),
                     new TollBoothRepo(),
-                    new EquipmentFailureRepo());
+                    new EquipmentFailureRepo(),
+                    true);
                 Close();
                 physicalPaymentView.Show();
             }
@@ -127,7 +131,8 @@ namespace NaplatneRampeSrbije.ViewsControllers
                         new TollBoothRepo(),
                         new BillRepo()),
                     new TollBoothRepo(),
-                    new EquipmentFailureRepo());
+                    new EquipmentFailureRepo(),
+                    false);
             Close();
             physicalPaymentView.Show();
         }

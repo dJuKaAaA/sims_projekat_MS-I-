@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data.OleDb;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -24,23 +25,46 @@ namespace NaplatneRampeSrbije.ViewsControllers
         private readonly ITollBoothService _tollBoothService;
         private readonly ITollBoothRepo _tollBoothRepo;
         private readonly IEquipmentFailureRepo _equipmentFailureRepo;
+        private readonly ITollStationRepo _tollStationRepo;
 
         public PhysicalPaymentView(
-            ITollBoothService tollBoothService, 
-            ITollBoothRepo tollBoothRepo, 
-            IEquipmentFailureRepo equipmentFailureRepo)
+            ITollBoothService tollBoothService,
+            ITollBoothRepo tollBoothRepo,
+            IEquipmentFailureRepo equipmentFailureRepo,
+            bool Block)
         {
             InitializeComponent();
+            _tollStationRepo = new TollStationRepo();
             _tollBoothService = tollBoothService;
             _tollBoothRepo = tollBoothRepo;
             _equipmentFailureRepo = equipmentFailureRepo;
+            RampSet(Block);
             FillTollBoothsComboBox();
             FillVehicleTypeComboBox();
             FillCurrencyComboBox();
             SetFailureIndicators();
             entryDatePicker.SelectedDate = DateTime.Now;
+
+        }
+        private void RampSet(bool Block)
+        {
+            if (Block)
+                RampControlSwap();
         }
 
+        private void RampControlSwap()
+        {
+            enteredTollBoothComboBox.IsEnabled = !enteredTollBoothComboBox.IsEnabled;
+            vehicleTypeComboBox.IsEnabled = !vehicleTypeComboBox.IsEnabled;
+            currencyComboBox.IsEnabled = !currencyComboBox.IsEnabled;
+            rampBlockedCheckBox.IsChecked = !rampBlockedCheckBox.IsChecked;
+            generateBillButton.IsEnabled = !generateBillButton.IsEnabled;
+            blockRampButton.IsEnabled = !blockRampButton.IsEnabled;
+            unblockRampButton.IsEnabled = !unblockRampButton.IsEnabled;
+            entryDatePicker.IsEnabled = !entryDatePicker.IsEnabled;
+            hoursTextBox.IsEnabled = !hoursTextBox.IsEnabled;
+            minutesTextBox.IsEnabled = !minutesTextBox.IsEnabled;
+        }
         private void SetFailureIndicators()
         {
             rampFailureIndicatorCheckBox.IsChecked = true;
@@ -68,9 +92,21 @@ namespace NaplatneRampeSrbije.ViewsControllers
 
         private void FillTollBoothsComboBox()
         {
-            List<TollBooth> allTollBooths = _tollBoothRepo.GetAll();
-            enteredTollBoothComboBox.ItemsSource = allTollBooths;
-            enteredTollBoothComboBox.SelectedItem = allTollBooths[0];
+            List<int> tollStations = _tollStationRepo.GetTollStationsByShare(Globals.signedEmployee.TollBooth.TollStation);
+            List<TollBooth> allTollBooths = new List<TollBooth>();
+            foreach (int tollStationID in tollStations)
+            {
+                allTollBooths.AddRange(_tollBoothRepo.GetAllByTollStationID(tollStationID));
+            }
+            List<TollBooth> filteredTollBooths = new List<TollBooth>();
+            foreach (TollBooth tollBooth in allTollBooths)
+            {
+                if (_tollBoothService.SameTollStation(tollBooth, Globals.signedEmployee.TollBooth))
+                    continue;
+                filteredTollBooths.Add(tollBooth);
+            }
+            enteredTollBoothComboBox.ItemsSource = filteredTollBooths;
+            enteredTollBoothComboBox.SelectedItem = filteredTollBooths[0];
         }
 
         private void FillVehicleTypeComboBox()
@@ -140,14 +176,18 @@ namespace NaplatneRampeSrbije.ViewsControllers
             TollBooth enteredTollBooth = (TollBooth)enteredTollBoothComboBox.SelectedItem;
             VehicleType vehicleType = (VehicleType)vehicleTypeComboBox.SelectedItem;
             Currency currency = (Currency)currencyComboBox.SelectedItem;
-
-            DateTime exitDate = DateTime.Now;
-
-            if (_tollBoothService.SameTollStation(enteredTollBooth.ID, Globals.signedEmployee.TollBooth.ID))
+            String minutes = minutesTextBox.Text;
+            String hours = hoursTextBox.Text;
+            if (minutes.Length == 0 || hours.Length == 0)
             {
-                _ = MessageBox.Show("Nije validna kombinacija mesta ulaska i izlaska", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Unesite vreme");
                 return;
             }
+            if (minutes.Length == 1)
+                minutes = "0" + minutes;
+            String timeOfEntrance = hours + ":" + minutes;
+
+            DateTime exitDate = DateTime.Now;
 
             BillGenerationView billGenerationView = new BillGenerationView(
                 new BillService(
@@ -161,23 +201,15 @@ namespace NaplatneRampeSrbije.ViewsControllers
                 currency,
                 enteredTollBooth,
                 entryDate,
-                exitDate);
+                exitDate,
+                timeOfEntrance);
             Close();
             billGenerationView.Show();
         }
 
         private void rampControlButton_Click(object sender, RoutedEventArgs e)
         {
-            enteredTollBoothComboBox.IsEnabled = !enteredTollBoothComboBox.IsEnabled;
-            vehicleTypeComboBox.IsEnabled = !vehicleTypeComboBox.IsEnabled;
-            currencyComboBox.IsEnabled = !currencyComboBox.IsEnabled;
-            rampBlockedCheckBox.IsChecked = !rampBlockedCheckBox.IsChecked;
-            generateBillButton.IsEnabled = !generateBillButton.IsEnabled;
-            blockRampButton.IsEnabled = !blockRampButton.IsEnabled;
-            unblockRampButton.IsEnabled = !unblockRampButton.IsEnabled;
-            entryDatePicker.IsEnabled = !entryDatePicker.IsEnabled;
-            hoursTextBox.IsEnabled = !hoursTextBox.IsEnabled;
-            minutesTextBox.IsEnabled = !minutesTextBox.IsEnabled;
+            RampControlSwap();
         }
 
         private void Logout()

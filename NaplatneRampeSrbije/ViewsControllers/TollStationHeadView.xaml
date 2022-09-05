@@ -19,6 +19,7 @@
             <RowDefinition />
             <RowDefinition />
             <RowDefinition />
+            <RowDefinition />
             <RowDefinition Height ="50" />
         </Grid.RowDefinitions>
         <Button 
@@ -51,10 +52,15 @@
             Grid.Row="5"
             Margin="100 10" 
             Click="currentPricelistButton_Click" />
+        <Button x:Name="createAShareButton"
+                Content="Kreiraj deonicu"
+                Grid.Row="6"
+                Margin = "100 10" Click="createAShareButton_Click" 
+                />
         <Button
             x:Name="logoutButton"
             Content="Odjavi se"
-            Grid.Row="6"
+            Grid.Row="7"
             Click="logoutButton_Click" 
             Margin="100 10" />
     </Grid>

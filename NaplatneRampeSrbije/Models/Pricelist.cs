@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.OleDb;
+using System.Globalization;
 
 namespace NaplatneRampeSrbije.Models
 {
@@ -28,7 +29,7 @@ namespace NaplatneRampeSrbije.Models
         public Pricelist(OleDbDataReader reader, IPricelistItemRepo pricelistItemRepo)
         {
             ID = Convert.ToInt32(reader[0]);
-            StartDate = DateTime.Parse(reader[1].ToString());
+            StartDate = DateTime.ParseExact(reader[1].ToString(), "d.M.yyyy.", CultureInfo.InvariantCulture);
             EndDate = reader[2].ToString() == "null" ? new DateTime() : DateTime.Parse(reader[2].ToString());
             Items = pricelistItemRepo.GetByPricelist(this);
         }
